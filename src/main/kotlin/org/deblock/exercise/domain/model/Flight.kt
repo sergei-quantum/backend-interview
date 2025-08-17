@@ -1,6 +1,5 @@
 package org.deblock.exercise.domain.model
 
-import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonValue
 import java.math.BigDecimal
 import java.time.LocalDateTime

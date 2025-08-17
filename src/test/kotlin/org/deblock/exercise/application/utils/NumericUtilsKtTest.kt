@@ -1,7 +1,6 @@
 package org.deblock.exercise.application.utils
 
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 
