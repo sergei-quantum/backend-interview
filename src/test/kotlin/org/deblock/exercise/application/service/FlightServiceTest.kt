@@ -8,6 +8,7 @@ import org.deblock.exercise.domain.model.FlightSearchQuery
 import org.deblock.exercise.domain.model.SupplierType.CRAZY_AIR
 import org.deblock.exercise.domain.model.SupplierType.TOUGH_JET
 import org.deblock.exercise.domain.port.FlightSupplier
+import org.deblock.exercise.infrastructure.exceptions.RemoteServiceException
 import org.junit.jupiter.api.Test
 import org.springframework.core.task.SyncTaskExecutor
 import java.math.BigDecimal
@@ -20,16 +21,16 @@ class FlightServiceTest {
     private val supplier2 = mockk<FlightSupplier>()
     private val taskExecutor = SyncTaskExecutor()
     private val flightService = FlightService(listOf(supplier1, supplier2), taskExecutor)
+    private val query = FlightSearchQuery(
+        origin = "AMS",
+        destination = "LND",
+        departureDate = LocalDate.parse("2025-08-01"),
+        returnDate = LocalDate.parse("2025-08-10"),
+        numberOfPassengers = 1
+    )
 
     @Test
     fun `should aggregate and sort flights from multiple suppliers`() {
-        val query = FlightSearchQuery(
-            origin = "AMS",
-            destination = "LND",
-            departureDate = LocalDate.parse("2025-08-01"),
-            returnDate = LocalDate.parse("2025-08-10"),
-            numberOfPassengers = 1
-        )
         val flight1 = Flight(
             airline = "KLM",
             supplier = CRAZY_AIR,
@@ -52,5 +53,13 @@ class FlightServiceTest {
         every { supplier2.findFlights(query) } returns listOf(flight2)
 
         flightService.findFlights(query) shouldBe listOf(flight2, flight1)
+    }
+
+    @Test
+    fun `should return empty list when appliers fail`() {
+        every { supplier1.findFlights(query) } throws RemoteServiceException("internal error")
+        every { supplier2.findFlights(query) } throws RemoteServiceException("internal error")
+
+        flightService.findFlights(query) shouldBe emptyList()
     }
 }
