@@ -9,6 +9,7 @@ import org.deblock.exercise.domain.model.SupplierType.CRAZY_AIR
 import org.deblock.exercise.domain.model.SupplierType.TOUGH_JET
 import org.deblock.exercise.domain.port.FlightSupplier
 import org.junit.jupiter.api.Test
+import org.springframework.core.task.SyncTaskExecutor
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalTime
@@ -17,7 +18,8 @@ class FlightServiceTest {
 
     private val supplier1 = mockk<FlightSupplier>()
     private val supplier2 = mockk<FlightSupplier>()
-    private val flightService = FlightService(listOf(supplier1, supplier2))
+    private val taskExecutor = SyncTaskExecutor()
+    private val flightService = FlightService(listOf(supplier1, supplier2), taskExecutor)
 
     @Test
     fun `should aggregate and sort flights from multiple suppliers`() {
