@@ -30,8 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post 
 @SpringBootTest
 @AutoConfigureWireMock(port = 0)
 @AutoConfigureMockMvc
-class FlightsApiControllerIntegrationTest(
-) {
+class FlightsApiControllerIntegrationTest {
     @Autowired
     private lateinit var flightsApiController: FlightsApiController
 
