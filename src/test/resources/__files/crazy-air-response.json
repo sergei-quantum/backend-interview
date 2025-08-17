@@ -1,0 +1,11 @@
+[
+  {
+    "airline": "TestAir",
+    "price": 199.99,
+    "cabinclass": "B",
+    "departureAirportCode": "AMS",
+    "destinationAirportCode": "LND",
+    "departureDate": "2024-03-15T08:30:00",
+    "arrivalDate": "2024-03-15T10:45:00"
+  }
+]

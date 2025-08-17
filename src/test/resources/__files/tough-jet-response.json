@@ -1,0 +1,22 @@
+[
+  {
+    "carrier": "EasyJet",
+    "basePrice": 89.99,
+    "tax": 15.00,
+    "discount": 10.00,
+    "departureAirportName": "AMS",
+    "arrivalAirportName": "LND",
+    "outboundDateTime": "2024-04-01T06:15:00",
+    "inboundDateTime": "2024-04-08T20:30:00"
+  },
+  {
+    "carrier": "KLM",
+    "basePrice": 149.99,
+    "tax": 30.00,
+    "discount": 20.00,
+    "departureAirportName": "AMS",
+    "arrivalAirportName": "LND",
+    "outboundDateTime": "2024-05-10T11:20:00",
+    "inboundDateTime": "2024-05-17T23:45:00"
+  }
+]

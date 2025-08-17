@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: deblock-flights
+suppliers:
+  crazy-air:
+    base-url: "https://crazy-air.com/"
+  tough-jet:
+    base-url: "https://tough-jet.com/"
+logging:
+  level:
+    org:
+      springframework: WARN
+
