@@ -9,9 +9,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 
+/**
+ * Global exception handler for the application.
+ */
 @ControllerAdvice
 class ExceptionsHandler {
 
+    /**
+     * Handles exceptions thrown by controllers.
+     *
+     * @param ex The thrown exception.
+     * @return A [ResponseEntity] containing a map with an error message and the corresponding HTTP status.
+     */
     @ExceptionHandler(Exception::class)
     fun handle(ex: Exception): ResponseEntity<Map<String, String>> {
         return when (ex) {

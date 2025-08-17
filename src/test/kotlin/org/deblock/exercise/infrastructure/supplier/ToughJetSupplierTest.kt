@@ -8,7 +8,6 @@ import org.deblock.exercise.domain.model.Flight
 import org.deblock.exercise.domain.model.FlightSearchQuery
 import org.deblock.exercise.domain.model.SupplierType
 import org.deblock.exercise.infrastructure.config.ToughJetConfig
-import org.deblock.exercise.infrastructure.dto.CrazyAirResponseDto
 import org.deblock.exercise.infrastructure.dto.ToughJetResponseDto
 import org.deblock.exercise.infrastructure.exceptions.RemoteServiceException
 import org.junit.jupiter.api.Assertions.*
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.http.ResponseEntity
 import org.springframework.web.client.RestTemplate
 import java.math.BigDecimal
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -48,16 +48,12 @@ class ToughJetSupplierTest {
                 discount = BigDecimal("10"),
                 departureAirportName = "JFK",
                 arrivalAirportName = "LAX",
-                outboundDateTime = LocalDateTime.parse("2025-08-20T10:00"),
-                inboundDateTime = LocalDateTime.parse("2025-08-20T19:00"),
+                outboundDateTime = Instant.parse("2025-08-20T10:00:00Z"),
+                inboundDateTime = Instant.parse("2025-08-20T19:00:00Z"),
             )
         )
         every {
-            restTemplate.postForEntity(
-                "${toughJetConfig.baseUrl}/flights",
-                any(),
-                Array<ToughJetResponseDto>::class.java
-            )
+            restTemplate.postForEntity(any<String>(), any(), Array<ToughJetResponseDto>::class.java)
         } returns ResponseEntity.ok(responseDto)
 
         supplier.findFlights(query) shouldBe listOf(

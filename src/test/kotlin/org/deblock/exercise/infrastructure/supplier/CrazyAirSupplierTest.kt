@@ -53,8 +53,9 @@ class CrazyAirSupplierTest {
                 arrivalDate = LocalDateTime.parse("2025-08-20T18:00")
             )
         )
-        every { restTemplate.postForEntity(any<String>(), any(), Array<CrazyAirResponseDto>::class.java) }
-            .returns(ResponseEntity.ok(responseDto))
+        every {
+            restTemplate.postForEntity(any<String>(), any(), Array<CrazyAirResponseDto>::class.java)
+        } returns (ResponseEntity.ok(responseDto))
 
         supplier.findFlights(query) shouldBe listOf(
             Flight(

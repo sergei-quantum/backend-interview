@@ -6,8 +6,8 @@
     "discount": 10.00,
     "departureAirportName": "AMS",
     "arrivalAirportName": "LND",
-    "outboundDateTime": "2024-04-01T06:15:00",
-    "inboundDateTime": "2024-04-08T20:30:00"
+    "outboundDateTime": "2024-04-01T06:15:00Z",
+    "inboundDateTime": "2024-04-08T20:30:00Z"
   },
   {
     "carrier": "KLM",
@@ -16,7 +16,7 @@
     "discount": 20.00,
     "departureAirportName": "AMS",
     "arrivalAirportName": "LND",
-    "outboundDateTime": "2024-05-10T11:20:00",
-    "inboundDateTime": "2024-05-17T23:45:00"
+    "outboundDateTime": "2024-05-10T11:20:00Z",
+    "inboundDateTime": "2024-05-17T23:45:00Z"
   }
 ]

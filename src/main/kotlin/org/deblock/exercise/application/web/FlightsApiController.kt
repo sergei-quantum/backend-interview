@@ -11,10 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * REST controller responsible for handling flight search requests.
+ */
 @RestController
 @RequestMapping("/flights")
 class FlightsApiController(private val flightService: FlightService) {
 
+    /**
+     * Finds flights based on the provided [query] and returns a list of [FlightResponseDto].
+     *
+     * @param query The flight search query received from the client.
+     * @return A list of [FlightResponseDto] sorted by fare.
+     * @throws ValidationException if the query is invalid (e.g., origin equals destination).
+     */
     @PostMapping("/find")
     fun findFlights(@Valid @RequestBody query: FlightSearchQueryDto): List<FlightResponseDto> {
         query.validateQuery()

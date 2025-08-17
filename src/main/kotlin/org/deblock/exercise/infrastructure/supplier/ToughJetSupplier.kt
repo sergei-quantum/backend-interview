@@ -3,7 +3,6 @@ package org.deblock.exercise.infrastructure.supplier
 import org.deblock.exercise.application.utils.twoDigitsScale
 import org.deblock.exercise.domain.model.Flight
 import org.deblock.exercise.domain.model.FlightSearchQuery
-import org.deblock.exercise.domain.model.SupplierType.CRAZY_AIR
 import org.deblock.exercise.domain.model.SupplierType.TOUGH_JET
 import org.deblock.exercise.domain.port.FlightSupplier
 import org.deblock.exercise.infrastructure.config.ToughJetConfig
@@ -13,10 +12,22 @@ import org.deblock.exercise.infrastructure.exceptions.RemoteServiceException
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 import java.math.BigDecimal
+import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.ZoneId
 
+/**
+ * Flight supplier implementation for the ToughJet service.
+ */
 @Component
-class ToughJetSupplier(private val toughJetConfig: ToughJetConfig, private val restTemplate: RestTemplate) : FlightSupplier {
+class ToughJetSupplier(
+    private val toughJetConfig: ToughJetConfig,
+    private val restTemplate: RestTemplate
+) : FlightSupplier {
+
+    companion object {
+        private val DEFAULT_ZONE_ID = ZoneId.of("UTC")
+    }
 
     override fun findFlights(query: FlightSearchQuery): List<Flight> {
         val request = query.toRequest()
@@ -26,7 +37,7 @@ class ToughJetSupplier(private val toughJetConfig: ToughJetConfig, private val r
             Array<ToughJetResponseDto>::class.java
         )
         if (!response.statusCode.is2xxSuccessful) throw RemoteServiceException("Unexpected error from $TOUGH_JET supplier: ${response.body}")
-        return response.body!!.toList().map { it.toFlightResponse()}
+        return response.body!!.toList().map { it.toFlightResponse() }
     }
 
 
@@ -47,8 +58,8 @@ class ToughJetSupplier(private val toughJetConfig: ToughJetConfig, private val r
             fare = calculateFare(),
             departureAirportCode = departureAirportName,
             destinationAirportCode = arrivalAirportName,
-            departureDate = outboundDateTime,
-            arrivalDate = inboundDateTime
+            departureDate = LocalDateTime.ofInstant(outboundDateTime, DEFAULT_ZONE_ID),
+            arrivalDate = LocalDateTime.ofInstant(inboundDateTime, DEFAULT_ZONE_ID)
         )
     }
 

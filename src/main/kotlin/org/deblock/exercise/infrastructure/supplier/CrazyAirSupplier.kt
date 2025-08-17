@@ -12,6 +12,9 @@ import org.deblock.exercise.infrastructure.exceptions.RemoteServiceException
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
+/**
+ * Flight supplier implementation for the CrazyAir service.
+ */
 @Component
 class CrazyAirSupplier(
     private val crazyAirConfig: CrazyAirConfig,
