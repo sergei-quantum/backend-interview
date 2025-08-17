@@ -63,6 +63,12 @@ class ToughJetSupplier(
         )
     }
 
+    /**
+     * Calculates the final fare for a [ToughJetResponseDto] by applying tax and discount.
+     *
+     * @receiver The [ToughJetResponseDto] containing base price, tax, and discount.
+     * @return The final fare as a [BigDecimal] rounded to two decimal places.
+     */
     private fun ToughJetResponseDto.calculateFare(): BigDecimal {
         val taxValue = BigDecimal.ONE.plus(tax.divide(BigDecimal("100")))
         val discountValue = BigDecimal.ONE.minus(discount.divide(BigDecimal("100")))
